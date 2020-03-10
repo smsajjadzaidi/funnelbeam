@@ -1,14 +1,14 @@
 # funnelbeam
 
 I have installed nodemon which restarts the application automatically whenever you save a file. 
-So, in order to run application, write "npm run devstart" inn terminal
-The application opens at localhost:3000
+So, in order to run application, write "npm run devstart" in terminal. <br>
+The application opens at localhost:3000 <br>
 Use postman to test the APIs.
 
-//Employee 
-url:http://localhost:3000/employee
-This url gets all the employees 
-This same url allows you to insert an employee by giving all parameters in body
+//Employee <br>
+url:http://localhost:3000/employee <br>
+This url gets all the employees <br>
+This same url allows you to insert an employee by giving all parameters in body<br>
 
 url:http://localhost:3000/employee/:email
 This url fetches and edits employee with the email address provided
