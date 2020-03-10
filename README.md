@@ -26,7 +26,8 @@ I have set name as unique so that we can find a client using name<br>
 url:http://localhost:3000/project<br>
 This url gets all the projects<br>
 This url is used to insert a project if project and client name are given in body.<br>
-This url can also be used to assign a project to an employee provided that name of project, client and employee are provided in body.<br>
+This url can also be used to assign a project to an employee given that name of project, client and employee are provided in body.<br>
+This url is also used to de-assign an employee from a project given that name of project, client and employee which you wat to remove are provided in body. <br>
 
 url:http://localhost:3000/project/:name<br>
 This url gets all the project with name specified in parameter.<br>
