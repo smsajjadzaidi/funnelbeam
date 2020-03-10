@@ -97,7 +97,6 @@ module.exports.insertProject = function(req, res) {
         errors = true;
     }
     
-    
     if(errors){
         sendJSONresponse(res,404,messages)
     }
@@ -159,6 +158,42 @@ module.exports.assignProject = function(req, res) {
                     sendJSONresponse(res,404,err);
                 } 
                 sendJSONresponse(res,200,{"message": "Successfully Assigned" , "project" : p});
+            });
+        });       
+
+    }
+}
+
+module.exports.deassignProject = function(req, res) {
+    var errors = false;
+    var messages = [];
+    
+    if(req.body.name == ""){
+        messages.push("Invalid project name");
+        errors = true;
+    }
+
+    if(req.body.CID == ""){
+        messages.push("Invalid client name");
+        errors = true;
+    }
+    
+    
+    if(errors){
+        sendJSONresponse(res,404,messages)
+    }
+    else{
+        pa.findOne({PID: req.body.name, CID: req.body.CID, EID:req.body.EID})
+        .exec(function(err, project){
+            if (err){
+                sendJSONresponse(res,404,err);
+            }
+            project.EID = "";
+            project.save(function(err, p){
+                if (err){
+                    sendJSONresponse(res,404,err);
+                } 
+                sendJSONresponse(res,200,{"message": "Successfully Removed" , "project" : p});
             });
         });       
 
