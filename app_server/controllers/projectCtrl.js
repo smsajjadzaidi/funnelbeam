@@ -1,7 +1,7 @@
 
 var mongoose = require('mongoose');
-var pro = require('../models/project');
-var pa=  require('../models/projectAssignments');
+var projectModel = require('../models/project');
+var projectAssignmentsModel=  require('../models/projectAssignments');
 
 
 var sendJSONresponse = function(res, status, content) {
@@ -10,24 +10,25 @@ var sendJSONresponse = function(res, status, content) {
 };
 
 
-module.exports.getAllProjects = function(req, res) {
+module.exports.GetAllProjects = function(req, res) {
     console.log('Finding all projects');
-    pro
+    projectModel
         .find()
-        .exec(function(err,project) {
-          if (err) {
+        .exec(function(err,project)
+        {
+            if (err)
+            {
             console.log(err);
             sendJSONresponse(res, 404, err);
             return;
-          }
-          sendJSONresponse(res, 200, project);
-        });
-    
+            }
+            sendJSONresponse(res, 200, project);
+        });   
 };
 
-module.exports.getProject = function(req, res) {
-    console.log('Finding all Project');
-    pro
+module.exports.GetProject = function(req, res) {
+    console.log('Finding a Project');
+    projectModel
         .find({name : req.params.name})
         .exec(function(err,project) {
           if (err) {
@@ -39,9 +40,9 @@ module.exports.getProject = function(req, res) {
         });   
 };
 
-module.exports.editProject = function(req, res) {
+module.exports.EditProject = function(req, res) {
     console.log('edit project');
-    pro
+    projectModel
         .findOne({name : req.params.name})
         .exec(function(err,project) {
             if (!project) {
@@ -49,7 +50,9 @@ module.exports.editProject = function(req, res) {
                   "message": "email not found"
                 });
                 return;
-              } else if (err) {
+            } 
+            else if (err) 
+            {
                 sendJSONresponse(res, 400, err);
                 return;
             }
@@ -68,8 +71,6 @@ module.exports.editProject = function(req, res) {
             else{
               
                 project.name = req.body.name;
-               
-                
                 project.save(function(err, project) {
                     if (err) {
                     sendJSONresponse(res, 404, err);
@@ -82,7 +83,7 @@ module.exports.editProject = function(req, res) {
     );
 };
 
-module.exports.insertProject = function(req, res) {
+module.exports.InsertProject = function(req, res) {
      
     var errors = false;
     var messages = [];
@@ -101,7 +102,7 @@ module.exports.insertProject = function(req, res) {
         sendJSONresponse(res,404,messages)
     }
     else{
-        pro.create({
+        projectModel.create({
             
             name: req.body.name
           
@@ -121,14 +122,12 @@ module.exports.insertProject = function(req, res) {
                 sendJSONresponse(res,200,{"message": "Successfully Added" , "project" : project});
             });
             
-
         });
         
-
     }
 }
 
-module.exports.assignProject = function(req, res) {
+module.exports.AssignProject = function(req, res) {
     var errors = false;
     var messages = [];
     
@@ -147,7 +146,7 @@ module.exports.assignProject = function(req, res) {
         sendJSONresponse(res,404,messages)
     }
     else{
-        pa.findOne({PID: req.body.name, CID: req.body.CID})
+        projectAssignmentsModel.findOne({PID: req.body.name, CID: req.body.CID})
         .exec(function(err, project){
             if (err){
                 sendJSONresponse(res,404,err);
@@ -164,7 +163,7 @@ module.exports.assignProject = function(req, res) {
     }
 }
 
-module.exports.deassignProject = function(req, res) {
+module.exports.DeassignProject = function(req, res) {
     var errors = false;
     var messages = [];
     
@@ -177,13 +176,12 @@ module.exports.deassignProject = function(req, res) {
         messages.push("Invalid client name");
         errors = true;
     }
-    
-    
+  
     if(errors){
         sendJSONresponse(res,404,messages)
     }
     else{
-        pa.findOne({PID: req.body.name, CID: req.body.CID, EID:req.body.EID})
+        projectAssignmentsModel.findOne({PID: req.body.name, CID: req.body.CID, EID:req.body.EID})
         .exec(function(err, project){
             if (err){
                 sendJSONresponse(res,404,err);
@@ -196,6 +194,5 @@ module.exports.deassignProject = function(req, res) {
                 sendJSONresponse(res,200,{"message": "Successfully Removed" , "project" : p});
             });
         });       
-
     }
 }

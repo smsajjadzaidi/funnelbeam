@@ -1,6 +1,6 @@
 
 var mongoose = require('mongoose');
-var cli = require('../models/client');
+var clientModel = require('../models/client');
 
 
 var sendJSONresponse = function(res, status, content) {
@@ -9,9 +9,9 @@ var sendJSONresponse = function(res, status, content) {
 };
 
 
-module.exports.getAllClients = function(req, res) {
+module.exports.GetAllClients = function(req, res) {
     console.log('Finding all clients');
-    cli
+    clientModel
         .find()
         .exec(function(err,client) {
           if (err) {
@@ -24,9 +24,9 @@ module.exports.getAllClients = function(req, res) {
     
 };
 
-module.exports.getClient = function(req, res) {
+module.exports.GetClient = function(req, res) {
     console.log('Finding all client');
-    cli
+    clientModel
         .find({name : req.params.name})
         .exec(function(err,client) {
           if (err) {
@@ -38,9 +38,9 @@ module.exports.getClient = function(req, res) {
         });   
 };
 
-module.exports.editClient = function(req, res) {
+module.exports.EditClient = function(req, res) {
     console.log('edit client');
-    cli
+    clientModel
         .findOne({name : req.params.name})
         .exec(function(err,client) {
             if (!client) {
@@ -79,7 +79,7 @@ module.exports.editClient = function(req, res) {
     );
 };
 
-module.exports.insertClient = function(req, res) {
+module.exports.InsertClient = function(req, res) {
      
     var errors = false;
     var messages = [];
@@ -94,7 +94,7 @@ module.exports.insertClient = function(req, res) {
         sendJSONresponse(res,404,messages)
     }
     else{
-        cli.create({
+        clientModel.create({
             
             name: req.body.name
           

@@ -1,6 +1,6 @@
 
 var mongoose = require('mongoose');
-var emp = require('../models/employee');
+var employeeModel = require('../models/employee');
 
 
 var sendJSONresponse = function(res, status, content) {
@@ -9,9 +9,9 @@ var sendJSONresponse = function(res, status, content) {
 };
 
 
-module.exports.getAllEmployees = function(req, res) {
+module.exports.GetAllEmployees = function(req, res) {
     console.log('Finding all employees');
-    emp
+    employeeModel
         .find()
         .exec(function(err,employee) {
           if (err) {
@@ -24,9 +24,9 @@ module.exports.getAllEmployees = function(req, res) {
     
 };
 
-module.exports.getEmployee = function(req, res) {
+module.exports.GetEmployee = function(req, res) {
     console.log('Finding all employees');
-    emp
+    employeeModel
         .find({email : req.params.email})
         .exec(function(err,employee) {
           if (err) {
@@ -38,9 +38,9 @@ module.exports.getEmployee = function(req, res) {
         });   
 };
 
-module.exports.editEmployee = function(req, res) {
+module.exports.EditEmployee = function(req, res) {
     console.log('edit employee');
-    emp
+    employeeModel
         .findOne({email : req.params.email})
         .exec(function(err,employee) {
             if (!employee) {
@@ -96,7 +96,7 @@ module.exports.editEmployee = function(req, res) {
     );
 };
 
-module.exports.insertEmployee = function(req, res) {
+module.exports.InsertEmployee = function(req, res) {
      
     var errors = false;
     var messages = [];
@@ -124,7 +124,7 @@ module.exports.insertEmployee = function(req, res) {
         sendJSONresponse(res,404,messages)
     }
     else{
-        emp.create({
+        employeeModel.create({
             email: req.body.email,
             name: req.body.name,
             gender: req.body.gender,

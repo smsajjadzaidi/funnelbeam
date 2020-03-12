@@ -3,10 +3,11 @@ var router = express.Router();
 var ctrlProject = require('../controllers/projectCtrl');
 
 /* GET project listing. */
-router.get('/', ctrlProject.getAllProjects ); 
-router.get('/:name', ctrlProject.getProject );
-router.put('/:name', ctrlProject.editProject ); 
-router.post('/', ctrlProject.insertProject);
-router.put('/',ctrlProject.assignProject);
-router.delete('/',ctrlProject.deassignProject);
+router.get('/', ctrlProject.GetAllProjects ); 
+router.get('/:name', ctrlProject.GetProject );
+router.put('/:name', ctrlProject.EditProject ); 
+router.post('/', ctrlProject.InsertProject);
+router.put('/',ctrlProject.AssignProject);
+router.delete('/',ctrlProject.DeassignProject);
+
 module.exports = router;

@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var ctrlEmp = require('../controllers/clientCtrl');
+var ctrlRouter = require('../controllers/clientCtrl');
 
 /* GET client listing. */
-router.get('/', ctrlEmp.getAllClients ); 
-router.get('/:name', ctrlEmp.getClient);
-router.put('/:name', ctrlEmp.editClient ); 
-router.post('/', ctrlEmp.insertClient);
+router.get('/', ctrlRouter.GetAllClients ); 
+router.get('/:name', ctrlRouter.GetClient);
+router.put('/:name', ctrlRouter.EditClient ); 
+router.post('/', ctrlRouter.InsertClient);
 
 module.exports = router;
